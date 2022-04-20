@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>body {
+        font-family: sans-serif;
+        background-color: #eeeeee;
+      }
+      
+      .file-upload {
+        background-color: #ffffff;
+        width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+      
+      .file-upload-btn {
+        width: 100%;
+        margin: 0;
+        color: #fff;
+        background: #274bad;
+        border: none;
+        padding: 10px;
+        border-radius: 4px;
+        border-bottom: 4px solid #003cff;
+        transition: all .2s ease;
+        outline: none;
+        text-transform: uppercase;
+        font-weight: 700;
+      }
+      
+
+      .start-btn {
+        width: 50%;
+        margin: 0;
+        color: #fff;
+        background: #274bad;
+        border: none;
+        padding: 10px;
+        border-radius: 4px;
+        border-bottom: 4px solid #003cff;
+        transition: all .2s ease;
+        outline: none;
+        text-transform: uppercase;
+        font-weight: 700;
+}
+       .start-btn:hover {
+        background: #274bad;
+        color: #ffffff;
+        transition: all .2s ease;
+        cursor: pointer;
+}
+
+       .analysis-btn {
+       width: 49%;
+       margin: 0;
+       color: #fff;
+       background: #274bad;
+       border: none;
+       padding: 10px;
+       border-radius: 4px;
+       border-bottom: 4px solid #003cff;
+       transition: all .2s ease;
+       outline: none;
+       text-transform: uppercase;
+       font-weight: 700;
+}
+
+       .analysis-btn:hover {
+        background: #274bad;
+        color: #ffffff;
+        transition: all .2s ease;
+        cursor: pointer;
+}
+
+      .file-upload-btn:hover {
+        background: #274bad;
+        color: #ffffff;
+        transition: all .2s ease;
+        cursor: pointer;
+
+}  
+      
+      .file-upload-btn:active {
+        border: 0;
+        transition: all .2s ease;
+      }
+      
+      .file-upload-content {
+        display: none;
+        text-align: center;
+      }
+      
+      .file-upload-input {
+        position: absolute;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        outline: none;
+        opacity: 0;
+        cursor: pointer;
+      }
+      
+      .image-upload-wrap {
+        margin-top: 20px;
+        border: 4px dashed #274bad;
+        position: relative;
+      }
+      
+      .image-dropping,
+      .image-upload-wrap:hover {
+        background-color: #274bad;
+        border: 4px dashed #ffffff;
+      }
+      
+      .image-title-wrap {
+        padding: 0 15px 15px 15px;
+        color: #222;
+      }
+      
+      .drag-text {
+        text-align: center;
+      }
+      
+      .drag-text h3 {
+        font-weight: 100;
+        text-transform: uppercase;
+        color: #003cff;
+        padding: 60px 0;
+      }
+      
+      .file-upload-image {
+        max-height: 200px;
+        max-width: 200px;
+        margin: auto;
+        padding: 20px;
+      }
+      
+      .remove-image {
+        width: 200px;
+        margin: 0;
+        color: #fff;
+        background: #cd4535;
+        border: none;
+        padding: 10px;
+        border-radius: 4px;
+        border-bottom: 4px solid #b02818;
+        transition: all .2s ease;
+        outline: none;
+        text-transform: uppercase;
+        font-weight: 700;
+      }
+      
+      .remove-image:hover {
+        background: #c13b2a;
+        color: #ffffff;
+        transition: all .2s ease;
+        cursor: pointer;
+      }
+
+      .title-cotent {
+        text-align: center;
+        background-color: #ffffff;
+         width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+}
+
+      .two-btn {
+        text-align: center;
+        background-color: #ffffff;
+         width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+}
+      .body-cotent {
+         text-align: center;
+         width: 600px;
+         margin: 0 auto;
+         padding: 20px;
+}
+
+      .title-cotents {
+        text-align: center;
+        color: #fa0000;
+        margin: 0 auto;
+        padding: 20px;
+}
+
+      
+      .remove-image:active {
+        border: 0;
+        transition: all .2s ease;
+      }</style>
+    <title>Document</title>
+</head>
+<body>
+  <h3 class="title-cotent">한국인이 가장 많이 먹는 11가지의 과일 영양분석 서비스</h3>
+  <div class="two-btn" style=" text-align: center;">
+<button class="start-btn" onclick="init()">시작</button>
+<button class="analysis-btn" onclick="predict()">분석</button>
+</div>
+		<script class="jsbin" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+<div class="file-upload">
+
+  <div class="image-upload-wrap">
+    <input class="file-upload-input" type='file' onchange="readURL(this);" accept="image/*" />
+    <div class="drag-text">
+      <h3>파일을 드래그 하거나 클릭하여 삽입해주세요</h3>
+    </div>
+  </div>
+  <div class="body-cotent">
+    <h3>웹 서비스 이용 방법</h3> 
+  <div>1. 분석을 원하는 과일의 이미지를 추가해주세요.</div> 
+  <div>2. 이미지를 추가 한뒤 시작 버튼을 먼저 누른후 분석 버튼을 눌러주세요.</div> 
+  <div>3. 이미지를 잘못 추가한 경우 이미지 삭제 버튼을 클릭해 삭제해주세요.</div>
+  <div>4. 잠시후에 추가한 이미지의 영양 성분이 출력됩니다.</div>
+    <h3 class="title-cotents">필독</h3>
+  <div>학습된 과일은 감, 배, 귤, 딸기, 바나나, 복숭아, 사과, 수박, 참외, 키위, 포도 입니다.</div>
+  <div>한국인이 가장 많이 먹는 11가지의 과일을 제외한 이미지 첨부시 결과가 출력 되지 않습니다.</div>
+    <h3>영양 성분의 효과 및 하루 권장 섭취량</h3>
+    <div>비타민A - 시각 기능에 관여하고 성장 인자로 작용 등 효과/하루 권장량 900AI 최대 3,000AI</div>
+    <div>비타민B - 면역력 강화 및 피로회복 등 효과/하루 권장량 10mg 최대 100mg</div>
+    <div>비타민C - 결핍증, 스트레스 관련 혈관 기능 장애 회복, 피부 미용 등 효과/하루 권장량 100mg 최대 2,000mg</div>
+    <div>비타민K - 심혈관 질환, 골다공증, 당뇨병 발병 등 예방 효과/하루 권장량 300mcg 최대 1200mg </div>
+    <div>칼륨 - 나트륨 배출 및 혈압을 낮춤, 뇌졸중 및 심혈관 질병 위험도 낮춤 등 효과/하루 권장량 3,500mg 최대 4,900mg</div>
+    <div>칼슘 - 마그네슘, 인, 칼륨의 수준 조절, 대장암 예방 내장 지방 감소 및 체지방 감소 등 효과/하루 권장량 700mg 최대 2,500mg</div>
+    <div>철분 - 헤모글로빈 생성, 빈혈 치료 및 예방, 질병 저항력 증대 등 효과/하루 권장량 10~18mg 최대 45mg </div>
+    <div>마그네슘 - 미네랄 통합 조절, 스트레스 해소, 근육의 수축 이완 담당 등 효과/하루 권장량 400mg 최대 6,000mg</div>
+    <div>인 - 성장 촉진, 건강한 이와 잇몸 생성, 에너지와 활력 증대 등 효과/하루 권장량 800~1,200mg 최대 </div>
+    <div></div>
+  </div>
+  <div class="file-upload-content">
+    <img class="file-upload-image" id="image" src="#" alt="your image" />
+    <div class="image-title-wrap">
+      <button type="button" onclick="removeUpload()" class="remove-image">이미지 삭제 <span class="image-title">Uploaded Image</span></button>
+    </div>
+  </div>
+</div>
+<div id="webcam-container"></div>
+<div id="label-container"></div>
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8/dist/teachablemachine-image.min.js"></script>
+		<script>function readURL(input) {
+  if (input.files && input.files[0]) {
+
+    var reader = new FileReader();
+
+    reader.onload = function(e) {
+      $('.image-upload-wrap').hide();
+
+      $('.file-upload-image').attr('src', e.target.result);
+      $('.file-upload-content').show();
+
+      $('.image-title').html(input.files[0].name);
+    };
+
+    reader.readAsDataURL(input.files[0]);
+
+  } else {
+    removeUpload();
+  }
+}
+
+function removeUpload() {
+  $('.file-upload-input').replaceWith($('.file-upload-input').clone());
+  $('.file-upload-content').hide();
+  $('.image-upload-wrap').show();
+}
+$('.image-upload-wrap').bind('dragover', function () {
+		$('.image-upload-wrap').addClass('image-dropping');
+	});
+	$('.image-upload-wrap').bind('dragleave', function () {
+		$('.image-upload-wrap').removeClass('image-dropping');
+});
+</script>
+		
+<script type="text/javascript">
+    // More API functions here:
+    // https://github.com/googlecreativelab/teachablemachine-community/tree/master/libraries/image
+
+    // the link to your model provided by Teachable Machine export panel
+    const URL = "https://teachablemachine.withgoogle.com/models/RUS3_sc7E/";
+
+    let model, webcam, labelContainer, maxPredictions;
+    const data = {
+      "감": {
+        "name": "감",
+        "Calorie": "126kcal",
+        "VitaminA": "1,627IU",
+        "VitaminB": "X",
+        "VitaminC": "66mg",
+        "VitaminK": "X",
+        "VitaminC": "66mg",  
+        "Kalium": "301mg",
+        "calcium": "27mg",
+        "carbohydrate": "34g",
+        "iron": "2.5mg",
+        "magnesium":"X",
+        "Phosphorus": "X",
+        "Season": "11월"
+      },
+      "배": {
+        "name": "배",
+        "Calorie": "57kcal",
+        "VitaminA": "25IU",
+        "VitaminB": "0.2mg",
+        "VitaminC": "4.3mg",
+        "VitaminK": "4.5mg",
+        "Kalium": "116mg",
+        "calcium": "9mg",
+        "carbohydrate": "15g",
+        "iron": "0.2mg",
+        "magnesium": "7mg",
+        "Phosphorus": "X",
+        "Season": "9월~11월"
+      },
+      "귤": {
+        "name": "귤",
+        "Calorie": "53kcal",
+        "VitaminA": "60IU",
+        "VitaminB": "0.3mg",
+        "VitaminC": "26.7mg",
+        "VitaminK": "X",
+        "Kalium": "166mg",
+        "calcium": "37mg",
+        "carbohydrate": "13g",
+        "iron": "X",
+        "magnesium": "12mg",
+        "Phosphorus": "X",
+        "Kalium": "166mg",
+        "calcium": "37mg",
+        "carbohydrate": "13g",
+        "magnesium": "12mg",
+        "Season": "11월~12월"
+      },
+      "딸기": {
+        "name": "딸기",
+        "Calorie": "32kcal",
+        "VitaminA": "12IU",
+        "VitaminB": "0.4mg",
+        "VitaminC": "59mg",
+        "VitaminK": "X",
+        "Kalium": "153mg",
+        "calcium": "16mg",
+        "carbohydrate": "8g",
+        "iron": "X",
+        "magnesium": "13mg",
+        "Phosphorus": "X",
+        "Kalium": "153mg",
+        "calcium": "16mg",
+        "carbohydrate": "8g",
+        "magnesium": "13mg",
+        "Season": "12월~1월"
+      },
+      "바나나": {
+        "name": "바나나",
+        "Calorie": "88kcal",
+        "VitaminA": "64IU",
+        "VitaminB": "0.41mg",
+        "VitaminC": "8.7mg",
+        "VitaminK": "X",
+        "Kalium": "358mg",
+        "calcium": "5mg",
+        "carbohydrate": "23g",
+        "iron": "X",
+        "magnesium": "27mg",
+        "Phosphorus": "X",
+        "Kalium": "358mg",
+        "calcium": "5mg",
+        "carbohydrate": "23g",
+        "magnesium": "27mg",
+        "Season": "3월~6월"
+      },
+      "복숭아": {
+        "name": "복숭아",
+        "Calorie": "39kcal",
+        "VitaminA": "9IU",
+        "VitaminB": "0.3mg",
+        "VitaminC": "10mg",
+        "VitaminK": "X",
+        "Kalium": "301mg",
+        "calcium": "27mg",
+        "carbohydrate": "15g",
+        "iron": "X",
+        "Kalium": "301mg",
+        "calcium": "27mg",
+        "carbohydrate": "15g",
+        "magnesium": "1.2mg",
+        "Phosphorus": "14g",
+        "Season": "7월~8월"
+      },
+      "사과": {
+        "name": "사과",
+        "Calorie": "52kcal",
+        "VitaminA": "54IU",
+        "VitaminB": "0.2mg",
+        "VitaminC": "4.6mg",
+        "VitaminK": "X",
+        "Kalium": "107mg",
+        "calcium": "6mg",
+        "carbohydrate": "14g",
+        "iron": "0.1mg", 
+        "magnesium": "5mg",
+        "Phosphorus": "X",
+        "Season": "10월"
+      },
+      "수박": {
+        "name": "수박",
+        "Calorie": "30kcal",
+        "VitaminA": "569IU",
+        "VitaminB": "0.06mg",
+        "VitaminC": "8.1mg",
+        "VitaminK": "X",
+        "Kalium": "112mg",
+        "calcium": "7mg",
+        "carbohydrate": "8g",
+        "iron": "0.2mg", 
+        "magnesium": "10mg",
+        "Phosphorus": "9g",
+        "Season": "7월~8월"
+      },
+      "참외": {
+        "name": "참외",
+        "Calorie": "31kcal",
+        "VitaminA": "15IU",
+        "VitaminB": "0.1mg",
+        "VitaminC": "30mg",
+        "VitaminK": "X",
+        "Kalium": "280mg",
+        "calcium": "6mg",
+        "carbohydrate": "7.8g",
+        "iron": "0.2mg", 
+        "magnesium": "12mg",
+        "Phosphorus": "8g",
+        "Season": "4월"
+      },
+      "키위": {
+        "name": "키위",
+        "Calorie": "60kcal",
+        "VitaminA": "87IU",
+        "VitaminB": "X",
+        "VitaminC": "92.7mg",
+        "VitaminK": "X",
+        "VitaminC": "92.7mg",
+        "VitaminE": "1.42mg",
+        "Kalium": "312mg",
+        "calcium": "34mg",
+        "carbohydrate": "15g",
+        "iron": "0.3mg", 
+        "magnesium": "17mg",
+        "Phosphorus": "X",
+        "Season": "뉴질랜드산 키위-5~11월, 제주산 키위-12~4월"
+      },
+      "포도": {
+        "name": "포도",
+        "Calorie": "66kcal",
+        "VitaminA": "100IU",
+        "VitaminB": "0.05mg",
+        "VitaminC": "4mg",
+        "VitaminK": "X",
+        "Kalium": "191mg",
+        "calcium": "14mg",
+        "carbohydrate": "17g",
+        "iron": "0.3mg",
+        "magnesium": "5mg",
+        "Phosphorus": "X",
+        "Season": "8월"
+      }
+      
+    }
+    // Load the image model and setup the webcam
+    async function init() {
+        const modelURL = URL + "model.json";
+        const metadataURL = URL + "metadata.json";
+
+        // load the model and metadata
+        // Refer to tmImage.loadFromFiles() in the API to support files from a file picker
+        // or files from your local hard drive
+        // Note: the pose library adds "tmImage" object to your window (window.tmImage)
+        model = await tmImage.load(modelURL, metadataURL);
+        maxPredictions = model.getTotalClasses();
+
+        labelContainer = document.getElementById("label-container");
+        for (let i = 0; i < maxPredictions; i++) { // and class labels
+            labelContainer.appendChild(document.createElement("div"));
+        }
+    }
+
+    
+
+    // run the webcam image through the image model
+    async function predict() {
+        // predict can take in an image, video or canvas html element
+		var image = document.getElementById("image")
+        const prediction = await model.predict(image, false);
+        for (let i = 0; i < maxPredictions; i++) {
+          if (prediction[i].probability.toFixed(2) === '1.00') {
+            const item = data[prediction[i].className]
+            labelContainer.innerHTML = `이름: ${item.name}, 칼로리: ${item.Calorie}, 비타민A: ${item.VitaminA}, 비타민B: ${item.VitaminB}, 비타민C: ${item.VitaminC}, 비타민K: ${item.VitaminK}, 칼륨: ${item.Kalium}, 칼슘: ${item.calcium}, 탄수화물: ${item.carbohydrate}, 철분: ${item.iron}, 마그네슘: ${item.magnesium}, 인: ${item.Phosphorus}, 제철시기: ${item.Season}`
+          }
+           // const classPrediction =
+             //   prediction[i].className + ": " + prediction[i].probability.toFixed(2);
+            //labelContainer.childNodes[i].innerHTML = classPrediction;
+        }
+    }
+</script>
+</body>
+</html>
